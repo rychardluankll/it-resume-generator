@@ -1,0 +1,11 @@
+sistema de gerar curriculos para desenenvolvedores e feedback baseado em IA para corrigir informações, incrementar, sugerir e editar.
+Sistema baseado nas skills requeridas pelo mercado e mostradas no roadmap.sh
+CV estruturado e organizado gerado automáticamente.
+
+    usuário insere seus dados principais ->
+    sistema pergunta quais as suas áreas de interesse ->
+    com base nas áreas de intersse, pergunta quais os conhecimentos fundamentais das áreas selecionadas ->
+    sistema pergunta quais ferramentas o usuário sabe -> sistema pergunta quais os projetos criados e adiciona correção de gramática e ortográfia (melhora a estrutura) ->
+    pergunta experiencias profissionais e qual o tipo (estágio, formal, informal, contribuição open-source, projeto pessoal) ->
+    sistema pergunta cursos e formação e seus respectivos status ->
+    
