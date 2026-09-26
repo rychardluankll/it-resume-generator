@@ -4,8 +4,8 @@ export const GlobalContext = createContext();
 
 export default function GlobalContextProvider({ children }) {
     const [dadosPreenchidos, setDadosPreenchidos] = useState({
-        "informacoesIniciais": false,
-        "areasInteresse": false,
+        informacoesIniciais: false,
+        areasInteresse: false,
     })
     const [informacoesIniciais, setInformacoesIniciais] = useState({
             nome: "",

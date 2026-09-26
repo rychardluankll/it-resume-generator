@@ -15,7 +15,7 @@ import {GlobalContext} from '../contexts/GlobalContexts';
 
         //Aqui declara ao contexto global que os dados foram preenchidos antes de prosseguir
         useEffect(() => {
-            setDadosPreenchidos({...dadosPreenchidos, "informacoesIniciais": true})
+            setDadosPreenchidos({...dadosPreenchidos, informacoesIniciais: true})
 
         }, [informacoesIniciais])
 
