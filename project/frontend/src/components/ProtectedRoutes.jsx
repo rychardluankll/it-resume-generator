@@ -1,5 +1,12 @@
-import { Navigate } from "react-router-dom";
+import { Navigate, Outlet} from "react-router-dom";
 
-export default function ProtectedRoutes() {
+export default function ProtectedRoutes({condition}) {
+if(!condition){
     return <Navigate to="/home" replace />;
 }
+    return <Outlet />
+    }
+    
+   
+    
+    

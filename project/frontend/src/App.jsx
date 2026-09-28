@@ -24,18 +24,20 @@ function App() {
                 />
 
                 {/* Rotas protegidas */}
-                <Route element={<ProtectedRoutes />}>
-
-                    <Route
-                        path="/areasInteresse"
-                        element={<AreasInteresse />}
-                    />
+                <Route element={<ProtectedRoutes condition={true} />}>
 
                     <Route
                         path="/backendFundamentos"
                         element={<BackendFundamentos />}
                     />
+                </Route>
 
+                   <Route element={<ProtectedRoutes condition={false} />}>
+
+                    <Route
+                        path="/areasInteresse"
+                        element={<AreasInteresse />}
+                    />
                 </Route>
 
             </Routes>
