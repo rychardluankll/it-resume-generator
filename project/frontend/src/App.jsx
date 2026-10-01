@@ -1,15 +1,20 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import {useContext} from 'react'
 
 import Home from './components/Home';
 import InformacoesIniciais from './components/InformacoesIniciais';
 import AreasInteresse from './components/AreasInteresse';
 import BackendFundamentos from './components/BackendFundamentos';
 import ProtectedRoutes from './components/ProtectedRoutes';
+import {AcessContext} from './contexts/AcessContext';
 
 function App() {
+    //Aqui o acesso as rotas é protegido pelo consumo do contexto
+    //De acordo com a interação com o sistema, o context é alterado ou não
+    const {acessAreasInteresse, acessBackendFundamentos, acessInformacoesIniciais } = useContext(AcessContext);
 
     return (
-        <BrowserRouter>
+       <BrowserRouter>
             <Routes>
 
                 {/* Rotas públicas */}
@@ -18,13 +23,12 @@ function App() {
                     element={<Home />}
                 />
 
-                <Route
-                    path="/informacoesIniciais"
-                    element={<InformacoesIniciais />}
-                />
-
                 {/* Rotas protegidas */}
-                <Route element={<ProtectedRoutes condition={true} />}>
+                <Route element={<ProtectedRoutes condition={acessInformacoesIniciais} />}>
+                <Route path="/informacoesIniciais" element={<InformacoesIniciais />} />
+                </Route>
+
+                <Route element={<ProtectedRoutes condition={acessBackendFundamentos} />}>
 
                     <Route
                         path="/backendFundamentos"
@@ -32,7 +36,7 @@ function App() {
                     />
                 </Route>
 
-                   <Route element={<ProtectedRoutes condition={false} />}>
+                   <Route element={<ProtectedRoutes condition={acessAreasInteresse} />}>
 
                     <Route
                         path="/areasInteresse"
@@ -42,7 +46,7 @@ function App() {
 
             </Routes>
         </BrowserRouter>
-    );
+    ); 
 }
 
 export default App;
