@@ -4,7 +4,8 @@ import {AcessContext} from '../contexts/AcessContext';
 
 export default function Home(){
 
-    const {acessAreasInteresse} = useContext(AcessContext)
+    //Aqui eu torno a próxima página acessível com true e permito o acesso
+    const {setAcessInformacoesIniciais} = useContext(AcessContext)
     const navigate = useNavigate();
     return (
         <div>
@@ -14,7 +15,7 @@ export default function Home(){
             2 - Clique em gerar 
             3 - Receba o seu CV estruturado e pronto para se aplicar
             </p>
-                <button onClick={()=> {navigate("/informacoesIniciais")}}>Prosseguir</button>
+                <button onClick={()=> { setAcessInformacoesIniciais(true), navigate("/informacoesIniciais")}}>Prosseguir</button>
         </div>
     )
 }

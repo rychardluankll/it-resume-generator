@@ -1,23 +1,18 @@
-import {useContext, useEffect} from 'react';
+import {useContext} from 'react';
 import {GlobalContext} from '../contexts/GlobalContexts';
+import {AcessContext} from '../contexts/AcessContext';
+import {useNavigate} from 'react-router-dom';
 
     export default function InformacoesIniciais(){
 
         const {informacoesIniciais, setInformacoesIniciais} = useContext(GlobalContext);
-        const {dadosPreenchidos, setDadosPreenchidos} = useContext(GlobalContext);
-
-        function send(e){
+        const {setAcessAreasInteresse} = useContext(AcessContext);
+        const navigate = useNavigate();
+        async function send(e){
             e.preventDefault();
-            //setDadosPreenchidos({...dadosPreenchidos, "informacoesIniciais": true})
-            console.log(dadosPreenchidos);
-
+            setAcessAreasInteresse(true);
+            navigate("/areasInteresse");     
         }
-
-        //Aqui declara ao contexto global que os dados foram preenchidos antes de prosseguir
-        useEffect(() => {
-            setDadosPreenchidos({...dadosPreenchidos, informacoesIniciais: true})
-
-        }, [informacoesIniciais])
 
         return (
             <form onSubmit={send}>
@@ -42,6 +37,11 @@ import {GlobalContext} from '../contexts/GlobalContexts';
                 <input type="tel" value={informacoesIniciais.telefone} maxLength={10} minLength={10} required onChange={(e) => {setInformacoesIniciais({...informacoesIniciais, telefone: e.target.value})}}/>
             </label><br></br>
             <label>
+             <label>
+                Telefone:
+                <input type="tel" value={informacoesIniciais.telefone} maxLength={10} minLength={10} required onChange={(e) => {setInformacoesIniciais({...informacoesIniciais, telefone: e.target.value})}}/>
+            </label><br></br>
+            <label></label>
                 WhatsApp:
                 <input type="tel" value={informacoesIniciais.whatsapp} maxLength={10} minLength={10} onChange={(e) => {setInformacoesIniciais({...informacoesIniciais, whatsapp: e.target.value})}}/>
             </label><br></br>

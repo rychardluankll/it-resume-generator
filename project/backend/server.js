@@ -5,10 +5,12 @@ const cors = require('cors');
     app.use(express.json());
     app.use(cors());
 
-    app.post("/informacoesIniciais", (req, res) => {
-        const {nomeCompleto, dataNascimento, cidade, estado, telefone, whatsapp, linkedin, github} = req.body;
+    app.post("/userData", (req, res) => {
 
-        res.json("dados recebidos");
+        
+
+
+        
     })
 
     const port = 8989;

@@ -1,12 +1,8 @@
-import { createContext, useState } from 'react';
+import { createContext, useState, useEffect } from 'react';
 
 export const GlobalContext = createContext();
 
 export default function GlobalContextProvider({ children }) {
-    const [dadosPreenchidos, setDadosPreenchidos] = useState({
-        informacoesIniciais: false,
-        areasInteresse: false,
-    })
     const [informacoesIniciais, setInformacoesIniciais] = useState({
             nome: "",
             nascimento: "",
@@ -18,11 +14,24 @@ export default function GlobalContextProvider({ children }) {
             github: ""
 });
     const [areasInteresse, setAreasInteresse] = useState([]);
-    //const [backendFundamentos, setBackendFundamentos] = useState([])
 
+    //enviar todos os dados para api;
+        async function sendData(){
+            const data = {
+                informacoesIniciais: informacoesIniciais,
+                areasInteresse: areasInteresse,
+            }
+
+            const response = await fetch("http://localhost:8989/userData", {
+                method: 'POST',
+                headers: {"Content-type": "application/json"},
+                body: JSON.stringify(data)
+            })
+        }
+    
     return (
         <GlobalContext.Provider value={{ informacoesIniciais, setInformacoesIniciais, areasInteresse, setAreasInteresse,
-            dadosPreenchidos, setDadosPreenchidos }}>
+             }}>
             {children}
         </GlobalContext.Provider>
     );

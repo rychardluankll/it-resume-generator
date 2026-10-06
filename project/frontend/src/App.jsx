@@ -5,13 +5,14 @@ import Home from './components/Home';
 import InformacoesIniciais from './components/InformacoesIniciais';
 import AreasInteresse from './components/AreasInteresse';
 import BackendFundamentos from './components/BackendFundamentos';
+import FrontendFundamentos from './components/FrontendFundamentos';
 import ProtectedRoutes from './components/ProtectedRoutes';
 import {AcessContext} from './contexts/AcessContext';
 
 function App() {
     //Aqui o acesso as rotas é protegido pelo consumo do contexto
     //De acordo com a interação com o sistema, o context é alterado ou não
-    const {acessAreasInteresse, acessBackendFundamentos, acessInformacoesIniciais } = useContext(AcessContext);
+    const {acessAreasInteresse, acessBackendFundamentos, acessFrontendFundamentos, acessInformacoesIniciais } = useContext(AcessContext);
 
     return (
        <BrowserRouter>
@@ -29,7 +30,6 @@ function App() {
                 </Route>
 
                 <Route element={<ProtectedRoutes condition={acessBackendFundamentos} />}>
-
                     <Route
                         path="/backendFundamentos"
                         element={<BackendFundamentos />}
@@ -42,6 +42,14 @@ function App() {
                         path="/areasInteresse"
                         element={<AreasInteresse />}
                     />
+                </Route>
+                <Route element={<ProtectedRoutes condition={acessFrontendFundamentos} />}>
+            
+                <Route
+                    path="/frontendFundamentos"
+                    element={<FrontendFundamentos/>}
+                />
+
                 </Route>
 
             </Routes>

@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import {useContext} from 'react';
 import {GlobalContext} from '../contexts/GlobalContexts';
 
 export default function AreasInteresse() {
