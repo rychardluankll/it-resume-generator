@@ -1,23 +1,32 @@
-import {useState} from 'react';
+import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { GlobalContext } from '../contexts/GlobalContexts';
+import { AcessContext } from '../contexts/AcessContext';
 
 export default function BackendFundamentos() {
-
-  const [datas, setDatas] = useState([])
+  const { backendFundamentos, setBackendFundamentos, areasInteresse, sendData } = useContext(GlobalContext);
+  const { setAcessFrontendFundamentos } = useContext(AcessContext);
+  const navigate = useNavigate();
 
   function handleChange(e) {
     const { value, checked } = e.target;
 
     if (checked) {
-      setDatas([...datas, value]);
+      setBackendFundamentos((prev) => [...prev, value]);
     } else {
-      setDatas(datas.filter((data) => data !== value));
+      setBackendFundamentos((prev) => prev.filter((data) => data !== value));
     }
   }
 
-  function getData(e) {
+  async function getData(e) {
     e.preventDefault();
 
-    
+    if (areasInteresse.includes("Frontend Developer")) {
+      setAcessFrontendFundamentos(true);
+      navigate("/frontendFundamentos");
+    } else {
+      await sendData();
+    }
   }
 
   return (

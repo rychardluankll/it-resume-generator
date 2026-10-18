@@ -34,24 +34,19 @@ import {useNavigate} from 'react-router-dom';
             </label><br></br>
             <label>
                 Telefone:
-                <input type="tel" value={informacoesIniciais.telefone} maxLength={10} minLength={10} required onChange={(e) => {setInformacoesIniciais({...informacoesIniciais, telefone: e.target.value})}}/>
+                <input type="tel" value={informacoesIniciais.telefone} maxLength={11} minLength={10} required onChange={(e) => {setInformacoesIniciais({...informacoesIniciais, telefone: e.target.value})}}/>
             </label><br></br>
             <label>
-             <label>
-                Telefone:
-                <input type="tel" value={informacoesIniciais.telefone} maxLength={10} minLength={10} required onChange={(e) => {setInformacoesIniciais({...informacoesIniciais, telefone: e.target.value})}}/>
-            </label><br></br>
-            <label></label>
                 WhatsApp:
-                <input type="tel" value={informacoesIniciais.whatsapp} maxLength={10} minLength={10} onChange={(e) => {setInformacoesIniciais({...informacoesIniciais, whatsapp: e.target.value})}}/>
+                <input type="tel" value={informacoesIniciais.whatsapp} maxLength={11} minLength={10} onChange={(e) => {setInformacoesIniciais({...informacoesIniciais, whatsapp: e.target.value})}}/>
             </label><br></br>
             <label>
                 Linkedin:
-                <input type="link" value={informacoesIniciais.linkedin} maxLength={100} minLength={10} onChange={(e) => {setInformacoesIniciais({...informacoesIniciais, linkedin: e.target.value})}}/>
+                <input type="url" value={informacoesIniciais.linkedin} maxLength={100} minLength={10} onChange={(e) => {setInformacoesIniciais({...informacoesIniciais, linkedin: e.target.value})}}/>
             </label><br></br>
-                        <label>
+            <label>
                 Github:
-                <input type="link" value={informacoesIniciais.github} maxLength={100} minLength={10} onChange={(e) => {setInformacoesIniciais({...informacoesIniciais, github: e.target.value})}}/>
+                <input type="url" value={informacoesIniciais.github} maxLength={100} minLength={10} onChange={(e) => {setInformacoesIniciais({...informacoesIniciais, github: e.target.value})}}/>
             </label><br></br>
             
                 <button type="submit">Enviar</button>

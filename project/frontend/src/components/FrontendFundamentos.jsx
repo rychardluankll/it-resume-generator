@@ -1,26 +1,25 @@
-import { useState } from 'react';
+import { useContext } from 'react';
+import { GlobalContext } from '../contexts/GlobalContexts';
 
 export default function FrontendFundamentos() {
-  const [datas, setDatas] = useState([]);
+  const { frontendFundamentos, setFrontendFundamentos, sendData } = useContext(GlobalContext);
 
   function handleChange(e) {
     const { value, checked } = e.target;
 
     if (checked) {
-      setDatas((prev) => [...prev, value]);
+      setFrontendFundamentos((prev) => [...prev, value]);
     } else {
-      setDatas((prev) => prev.filter((data) => data !== value));
+      setFrontendFundamentos((prev) => prev.filter((data) => data !== value));
     }
   }
 
-  function getData(e) {
+  async function getData(e) {
     e.preventDefault();
-
-    alert(datas);
+    await sendData();
   }
 
   return (
-    
     <form onSubmit={getData}>
         <p>Com base nos conhecimentos requeridos a um desenvolvedor frontend,
             marque apenas as opções que voce se considera ter conhecimento relevante ou maestria
@@ -58,9 +57,7 @@ export default function FrontendFundamentos() {
   />
   <span>CSS</span>
 </label>
-
 <br />
-
 <label className="opcao">
   <input
     type="checkbox"
