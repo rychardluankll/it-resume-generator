@@ -1,8 +1,12 @@
 import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { GlobalContext } from '../contexts/GlobalContexts';
+import { AcessContext } from '../contexts/AcessContext';
 
 export default function DataAnalystFundamentos() {
-  const { dataAnalystFundamentos, setDataAnalystFundamentos, sendData } = useContext(GlobalContext);
+  const { dataAnalystFundamentos, setDataAnalystFundamentos } = useContext(GlobalContext);
+  const { setAcessDataAnalystFerramentas } = useContext(AcessContext);
+  const navigate = useNavigate();
 
   function handleChange(e) {
     const { value, checked } = e.target;
@@ -14,9 +18,10 @@ export default function DataAnalystFundamentos() {
     }
   }
 
-  async function getData(e) {
+  function getData(e) {
     e.preventDefault();
-    await sendData();
+    setAcessDataAnalystFerramentas(true);
+    navigate("/dataAnalystFerramentas");
   }
 
   return (

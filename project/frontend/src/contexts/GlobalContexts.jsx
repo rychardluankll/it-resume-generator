@@ -21,6 +21,13 @@ export default function GlobalContextProvider({ children }) {
     const [cyberSecurityFundamentos, setCyberSecurityFundamentos] = useState([]);
     const [dataAnalystFundamentos, setDataAnalystFundamentos] = useState([]);
 
+    const [backendFerramentas, setBackendFerramentas] = useState([]);
+    const [frontendFerramentas, setFrontendFerramentas] = useState([]);
+    const [androidFerramentas, setAndroidFerramentas] = useState([]);
+    const [devopsFerramentas, setDevopsFerramentas] = useState([]);
+    const [cyberSecurityFerramentas, setCyberSecurityFerramentas] = useState([]);
+    const [dataAnalystFerramentas, setDataAnalystFerramentas] = useState([]);
+
     //enviar todos os dados para api;
     const [response, setResponse] = useState();
     async function sendData() {
@@ -33,6 +40,12 @@ export default function GlobalContextProvider({ children }) {
             devopsFundamentos: devopsFundamentos,
             cyberSecurityFundamentos: cyberSecurityFundamentos,
             dataAnalystFundamentos: dataAnalystFundamentos,
+            backendFerramentas: backendFerramentas,
+            frontendFerramentas: frontendFerramentas,
+            androidFerramentas: androidFerramentas,
+            devopsFerramentas: devopsFerramentas,
+            cyberSecurityFerramentas: cyberSecurityFerramentas,
+            dataAnalystFerramentas: dataAnalystFerramentas,
         };
 
         const res = await fetch("http://localhost:8989/userData", {
@@ -55,6 +68,12 @@ export default function GlobalContextProvider({ children }) {
             devopsFundamentos, setDevopsFundamentos,
             cyberSecurityFundamentos, setCyberSecurityFundamentos,
             dataAnalystFundamentos, setDataAnalystFundamentos,
+            backendFerramentas, setBackendFerramentas,
+            frontendFerramentas, setFrontendFerramentas,
+            androidFerramentas, setAndroidFerramentas,
+            devopsFerramentas, setDevopsFerramentas,
+            cyberSecurityFerramentas, setCyberSecurityFerramentas,
+            dataAnalystFerramentas, setDataAnalystFerramentas,
             sendData, response
         }}>
             {children}

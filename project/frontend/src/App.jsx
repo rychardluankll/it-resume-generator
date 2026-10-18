@@ -10,6 +10,12 @@ import AndroidFundamentos from './components/AndroidFundamentos';
 import DevopsFundamentos from './components/DevopsFundamentos';
 import CyberSecurityFundamentos from './components/CyberSecurityFundamentos';
 import DataAnalystFundamentos from './components/DataAnalystFundamentos';
+import BackendFerramentas from './components/BackendFerramentas';
+import FrontendFerramentas from './components/FrontendFerramentas';
+import AndroidFerramentas from './components/AndroidFerramentas';
+import DevopsFerramentas from './components/DevopsFerramentas';
+import CyberSecurityFerramentas from './components/CyberSecurityFerramentas';
+import DataAnalystFerramentas from './components/DataAnalystFerramentas';
 import ProtectedRoutes from './components/ProtectedRoutes';
 import {AcessContext} from './contexts/AcessContext';
 
@@ -24,6 +30,12 @@ function App() {
         acessDevopsFundamentos,
         acessCyberSecurityFundamentos,
         acessDataAnalystFundamentos,
+        acessBackendFerramentas,
+        acessFrontendFerramentas,
+        acessAndroidFerramentas,
+        acessDevopsFerramentas,
+        acessCyberSecurityFerramentas,
+        acessDataAnalystFerramentas,
         acessInformacoesIniciais
     } = useContext(AcessContext);
 
@@ -90,6 +102,48 @@ function App() {
                     <Route
                         path="/dataAnalystFundamentos"
                         element={<DataAnalystFundamentos />}
+                    />
+                </Route>
+
+                <Route element={<ProtectedRoutes condition={acessBackendFerramentas} />}>
+                    <Route
+                        path="/backendFerramentas"
+                        element={<BackendFerramentas />}
+                    />
+                </Route>
+
+                <Route element={<ProtectedRoutes condition={acessFrontendFerramentas} />}>
+                    <Route
+                        path="/frontendFerramentas"
+                        element={<FrontendFerramentas />}
+                    />
+                </Route>
+
+                <Route element={<ProtectedRoutes condition={acessAndroidFerramentas} />}>
+                    <Route
+                        path="/androidFerramentas"
+                        element={<AndroidFerramentas />}
+                    />
+                </Route>
+
+                <Route element={<ProtectedRoutes condition={acessDevopsFerramentas} />}>
+                    <Route
+                        path="/devopsFerramentas"
+                        element={<DevopsFerramentas />}
+                    />
+                </Route>
+
+                <Route element={<ProtectedRoutes condition={acessCyberSecurityFerramentas} />}>
+                    <Route
+                        path="/cyberSecurityFerramentas"
+                        element={<CyberSecurityFerramentas />}
+                    />
+                </Route>
+
+                <Route element={<ProtectedRoutes condition={acessDataAnalystFerramentas} />}>
+                    <Route
+                        path="/dataAnalystFerramentas"
+                        element={<DataAnalystFerramentas />}
                     />
                 </Route>
 

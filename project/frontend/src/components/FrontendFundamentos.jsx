@@ -1,8 +1,12 @@
 import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { GlobalContext } from '../contexts/GlobalContexts';
+import { AcessContext } from '../contexts/AcessContext';
 
 export default function FrontendFundamentos() {
-  const { frontendFundamentos, setFrontendFundamentos, sendData } = useContext(GlobalContext);
+  const { frontendFundamentos, setFrontendFundamentos } = useContext(GlobalContext);
+  const { setAcessFrontendFerramentas } = useContext(AcessContext);
+  const navigate = useNavigate();
 
   function handleChange(e) {
     const { value, checked } = e.target;
@@ -14,9 +18,10 @@ export default function FrontendFundamentos() {
     }
   }
 
-  async function getData(e) {
+  function getData(e) {
     e.preventDefault();
-    await sendData();
+    setAcessFrontendFerramentas(true);
+    navigate("/frontendFerramentas");
   }
 
   return (

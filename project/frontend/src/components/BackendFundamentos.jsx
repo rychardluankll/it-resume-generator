@@ -4,8 +4,8 @@ import { GlobalContext } from '../contexts/GlobalContexts';
 import { AcessContext } from '../contexts/AcessContext';
 
 export default function BackendFundamentos() {
-  const { backendFundamentos, setBackendFundamentos, areasInteresse, sendData } = useContext(GlobalContext);
-  const { setAcessFrontendFundamentos } = useContext(AcessContext);
+  const { backendFundamentos, setBackendFundamentos } = useContext(GlobalContext);
+  const { setAcessBackendFerramentas } = useContext(AcessContext);
   const navigate = useNavigate();
 
   function handleChange(e) {
@@ -18,15 +18,10 @@ export default function BackendFundamentos() {
     }
   }
 
-  async function getData(e) {
+  function getData(e) {
     e.preventDefault();
-
-    if (areasInteresse.includes("Frontend Developer")) {
-      setAcessFrontendFundamentos(true);
-      navigate("/frontendFundamentos");
-    } else {
-      await sendData();
-    }
+    setAcessBackendFerramentas(true);
+    navigate("/backendFerramentas");
   }
 
   return (

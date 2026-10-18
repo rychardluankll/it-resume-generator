@@ -13,6 +13,13 @@
         const [acessCyberSecurityFundamentos, setAcessCyberSecurityFundamentos] = useState(false);
         const [acessDataAnalystFundamentos, setAcessDataAnalystFundamentos] = useState(false);
 
+        const [acessBackendFerramentas, setAcessBackendFerramentas] = useState(false);
+        const [acessFrontendFerramentas, setAcessFrontendFerramentas] = useState(false);
+        const [acessAndroidFerramentas, setAcessAndroidFerramentas] = useState(false);
+        const [acessDevopsFerramentas, setAcessDevopsFerramentas] = useState(false);
+        const [acessCyberSecurityFerramentas, setAcessCyberSecurityFerramentas] = useState(false);
+        const [acessDataAnalystFerramentas, setAcessDataAnalystFerramentas] = useState(false);
+
         return (
             <AcessContext.Provider value={{
                 acessAreasInteresse, setAcessAreasInteresse,
@@ -22,6 +29,12 @@
                 acessDevopsFundamentos, setAcessDevopsFundamentos,
                 acessCyberSecurityFundamentos, setAcessCyberSecurityFundamentos,
                 acessDataAnalystFundamentos, setAcessDataAnalystFundamentos,
+                acessBackendFerramentas, setAcessBackendFerramentas,
+                acessFrontendFerramentas, setAcessFrontendFerramentas,
+                acessAndroidFerramentas, setAcessAndroidFerramentas,
+                acessDevopsFerramentas, setAcessDevopsFerramentas,
+                acessCyberSecurityFerramentas, setAcessCyberSecurityFerramentas,
+                acessDataAnalystFerramentas, setAcessDataAnalystFerramentas,
                 acessInformacoesIniciais, setAcessInformacoesIniciais
             }}>
                 {children}
