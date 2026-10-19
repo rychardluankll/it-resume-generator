@@ -9,7 +9,6 @@ export default function Home(){
     const navigate = useNavigate();
     return (
         <div>
-            <h1>Contexto {typeof acessAreasInteresse}</h1>
             <h1>Bem vindo ao gerador de currículos para TI</h1>
             <p>1 - Adicione as informações 
             2 - Clique em gerar 

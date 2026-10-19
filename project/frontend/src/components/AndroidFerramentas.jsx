@@ -1,22 +1,56 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { GlobalContext } from '../contexts/GlobalContexts';
+import { AcessContext } from '../contexts/AcessContext';
+
+const REGEX_FERRAMENTA_VALIDA = /^[a-zA-ZÀ-ÿ0-9\s.+#\-/()]{1,50}$/;
 
 export default function AndroidFerramentas() {
-  const { androidFerramentas, setAndroidFerramentas, sendData } = useContext(GlobalContext);
+  const { androidFerramentas, setAndroidFerramentas } = useContext(GlobalContext);
+  const { setAcessExperienciasProjetos } = useContext(AcessContext);
+  const navigate = useNavigate();
+  const [outroSelecionado, setOutroSelecionado] = useState(false);
+  const [outraFerramenta, setOutraFerramenta] = useState("");
+  const [ferramentasAdicionadas, setFerramentasAdicionadas] = useState([]);
 
   function handleChange(e) {
     const { value, checked } = e.target;
 
     if (checked) {
-      setAndroidFerramentas((prev) => [...prev, value]);
+      setAndroidFerramentas((prev) => (prev.includes(value) ? prev : [...prev, value]));
     } else {
       setAndroidFerramentas((prev) => prev.filter((data) => data !== value));
     }
   }
 
-  async function getData(e) {
+  function handleOutraFerramentaInput(e) {
+    const valorLimpo = e.target.value.replace(/[^a-zA-ZÀ-ÿ0-9\s.+#\-/()]/g, "").slice(0, 50);
+    setOutraFerramenta(valorLimpo);
+    if (valorLimpo.trim() !== "") {
+      setOutroSelecionado(true);
+    }
+  }
+
+  function handleAdicionarFerramenta() {
+    const novaFerramenta = outraFerramenta.trim();
+
+    if (!novaFerramenta || !REGEX_FERRAMENTA_VALIDA.test(novaFerramenta)) {
+      return;
+    }
+
+    setFerramentasAdicionadas((prev) =>
+      prev.includes(novaFerramenta) ? prev : [...prev, novaFerramenta]
+    );
+    setAndroidFerramentas((prev) =>
+      prev.includes(novaFerramenta) ? prev : [...prev, novaFerramenta]
+    );
+    setOutraFerramenta("");
+  }
+
+  function getData(e) {
     e.preventDefault();
-    await sendData();
+    setAcessExperienciasProjetos(true);
+    navigate("/experienciasProjetos");
   }
 
   return (
@@ -206,7 +240,44 @@ export default function AndroidFerramentas() {
 
       <br />
 
-      <button type="submit">Enviar</button>
+      {ferramentasAdicionadas.map((ferramenta, index) => (
+        <div key={`AFE-EXTRA-${index}`}>
+          <label className="opcao">
+            <input
+              type="checkbox"
+              value={ferramenta}
+              checked={androidFerramentas.includes(ferramenta)}
+              onChange={handleChange}
+            />
+            <span>{ferramenta}</span>
+          </label>
+          <br />
+        </div>
+      ))}
+
+      <label className="opcao">
+        <input
+          type="checkbox"
+          id="AFE-OUTRO"
+          checked={outroSelecionado}
+          onChange={(e) => setOutroSelecionado(e.target.checked)}
+        />
+        <span>Outro: </span>
+        <input
+          type="text"
+          maxLength={50}
+          placeholder="Digite outra ferramenta..."
+          value={outraFerramenta}
+          onChange={handleOutraFerramentaInput}
+        />
+        <button type="button" onClick={handleAdicionarFerramenta}>
+          Adicionar
+        </button>
+      </label>
+
+      <br />
+
+      <button type="submit">Prosseguir</button>
     </form>
   );
 }

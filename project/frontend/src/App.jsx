@@ -16,6 +16,7 @@ import AndroidFerramentas from './components/AndroidFerramentas';
 import DevopsFerramentas from './components/DevopsFerramentas';
 import CyberSecurityFerramentas from './components/CyberSecurityFerramentas';
 import DataAnalystFerramentas from './components/DataAnalystFerramentas';
+import ExperienciasProjetos from './components/ExperienciasProjetos';
 import ProtectedRoutes from './components/ProtectedRoutes';
 import {AcessContext} from './contexts/AcessContext';
 
@@ -36,6 +37,7 @@ function App() {
         acessDevopsFerramentas,
         acessCyberSecurityFerramentas,
         acessDataAnalystFerramentas,
+        acessExperienciasProjetos,
         acessInformacoesIniciais
     } = useContext(AcessContext);
 
@@ -144,6 +146,13 @@ function App() {
                     <Route
                         path="/dataAnalystFerramentas"
                         element={<DataAnalystFerramentas />}
+                    />
+                </Route>
+
+                <Route element={<ProtectedRoutes condition={acessExperienciasProjetos} />}>
+                    <Route
+                        path="/experienciasProjetos"
+                        element={<ExperienciasProjetos />}
                     />
                 </Route>
 

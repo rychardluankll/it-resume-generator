@@ -28,6 +28,9 @@ export default function GlobalContextProvider({ children }) {
     const [cyberSecurityFerramentas, setCyberSecurityFerramentas] = useState([]);
     const [dataAnalystFerramentas, setDataAnalystFerramentas] = useState([]);
 
+    const [experienciasPessoais, setExperienciasPessoais] = useState([]);
+    const [projetos, setProjetos] = useState([]);
+
     //enviar todos os dados para api;
     const [response, setResponse] = useState();
     async function sendData() {
@@ -46,6 +49,8 @@ export default function GlobalContextProvider({ children }) {
             devopsFerramentas: devopsFerramentas,
             cyberSecurityFerramentas: cyberSecurityFerramentas,
             dataAnalystFerramentas: dataAnalystFerramentas,
+            experienciasPessoais: experienciasPessoais,
+            projetos: projetos,
         };
 
         const res = await fetch("http://localhost:8989/userData", {
@@ -74,6 +79,8 @@ export default function GlobalContextProvider({ children }) {
             devopsFerramentas, setDevopsFerramentas,
             cyberSecurityFerramentas, setCyberSecurityFerramentas,
             dataAnalystFerramentas, setDataAnalystFerramentas,
+            experienciasPessoais, setExperienciasPessoais,
+            projetos, setProjetos,
             sendData, response
         }}>
             {children}

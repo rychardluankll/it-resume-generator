@@ -19,6 +19,7 @@
         const [acessDevopsFerramentas, setAcessDevopsFerramentas] = useState(false);
         const [acessCyberSecurityFerramentas, setAcessCyberSecurityFerramentas] = useState(false);
         const [acessDataAnalystFerramentas, setAcessDataAnalystFerramentas] = useState(false);
+        const [acessExperienciasProjetos, setAcessExperienciasProjetos] = useState(false);
 
         return (
             <AcessContext.Provider value={{
@@ -35,6 +36,7 @@
                 acessDevopsFerramentas, setAcessDevopsFerramentas,
                 acessCyberSecurityFerramentas, setAcessCyberSecurityFerramentas,
                 acessDataAnalystFerramentas, setAcessDataAnalystFerramentas,
+                acessExperienciasProjetos, setAcessExperienciasProjetos,
                 acessInformacoesIniciais, setAcessInformacoesIniciais
             }}>
                 {children}
