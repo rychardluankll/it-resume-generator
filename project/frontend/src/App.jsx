@@ -17,6 +17,7 @@ import DevopsFerramentas from './components/DevopsFerramentas';
 import CyberSecurityFerramentas from './components/CyberSecurityFerramentas';
 import DataAnalystFerramentas from './components/DataAnalystFerramentas';
 import ExperienciasProjetos from './components/ExperienciasProjetos';
+import FormacaoCertificacoes from './components/FormacaoCertificacoes';
 import ProtectedRoutes from './components/ProtectedRoutes';
 import {AcessContext} from './contexts/AcessContext';
 
@@ -38,6 +39,7 @@ function App() {
         acessCyberSecurityFerramentas,
         acessDataAnalystFerramentas,
         acessExperienciasProjetos,
+        acessFormacaoCertificacoes,
         acessInformacoesIniciais
     } = useContext(AcessContext);
 
@@ -153,6 +155,13 @@ function App() {
                     <Route
                         path="/experienciasProjetos"
                         element={<ExperienciasProjetos />}
+                    />
+                </Route>
+
+                <Route element={<ProtectedRoutes condition={acessFormacaoCertificacoes} />}>
+                    <Route
+                        path="/formacaoCertificacoes"
+                        element={<FormacaoCertificacoes />}
                     />
                 </Route>
 

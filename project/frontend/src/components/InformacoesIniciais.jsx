@@ -36,6 +36,10 @@ import {useNavigate} from 'react-router-dom';
                 Telefone:
                 <input type="tel" value={informacoesIniciais.telefone} maxLength={11} minLength={10} required onChange={(e) => {setInformacoesIniciais({...informacoesIniciais, telefone: e.target.value})}}/>
             </label><br></br>
+                        <label>
+                Email:
+                <input type="tel" value={informacoesIniciais.email} minLength={10} required onChange={(e) => {setInformacoesIniciais({...informacoesIniciais, email: e.target.value})}}/>
+            </label><br></br>
             <label>
                 WhatsApp:
                 <input type="tel" value={informacoesIniciais.whatsapp} maxLength={11} minLength={10} onChange={(e) => {setInformacoesIniciais({...informacoesIniciais, whatsapp: e.target.value})}}/>

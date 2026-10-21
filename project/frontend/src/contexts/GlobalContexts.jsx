@@ -9,6 +9,7 @@ export default function GlobalContextProvider({ children }) {
             cidade: "",
             estado: "",
             telefone: "",
+            email: "",
             whatsapp: "",
             linkedin: "",
             github: ""
@@ -30,6 +31,8 @@ export default function GlobalContextProvider({ children }) {
 
     const [experienciasPessoais, setExperienciasPessoais] = useState([]);
     const [projetos, setProjetos] = useState([]);
+    const [formacoes, setFormacoes] = useState([]);
+    const [certificacoes, setCertificacoes] = useState([]);
 
     //enviar todos os dados para api;
     const [response, setResponse] = useState();
@@ -51,6 +54,8 @@ export default function GlobalContextProvider({ children }) {
             dataAnalystFerramentas: dataAnalystFerramentas,
             experienciasPessoais: experienciasPessoais,
             projetos: projetos,
+            formacoes: formacoes,
+            certificacoes: certificacoes,
         };
 
         const res = await fetch("http://localhost:8989/userData", {
@@ -81,6 +86,8 @@ export default function GlobalContextProvider({ children }) {
             dataAnalystFerramentas, setDataAnalystFerramentas,
             experienciasPessoais, setExperienciasPessoais,
             projetos, setProjetos,
+            formacoes, setFormacoes,
+            certificacoes, setCertificacoes,
             sendData, response
         }}>
             {children}
