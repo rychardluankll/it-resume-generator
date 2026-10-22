@@ -1,30 +1,6 @@
 import { useContext, useState } from 'react';
 import { GlobalContext } from '../contexts/GlobalContexts';
 
-const ESTILO_LISTA_ITENS = {
-  listStylePosition: 'inside',
-  paddingLeft: 0,
-  marginTop: '8px',
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '6px',
-};
-
-const ESTILO_ITEM_CARD = {
-  maxWidth: '500px',
-  padding: '8px 12px',
-  fontSize: '0.85rem',
-  lineHeight: '1.4',
-  backgroundColor: '#f5f5f5',
-  border: '1px solid #ccc',
-  borderRadius: '4px',
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  gap: '10px',
-  wordBreak: 'break-word',
-};
-
 export default function FormacaoCertificacoes() {
   const {
     formacoes,
@@ -137,195 +113,200 @@ export default function FormacaoCertificacoes() {
         Adicione sua formação acadêmica/profissional e as certificações que você possui na área de tecnologia.
       </p>
 
-      <fieldset>
-        <legend><strong>Formação Acadêmica / Profissional</strong></legend>
+      <div className="cs-grid-2col">
+        <fieldset>
+          <legend><strong>Formação Acadêmica / Profissional</strong></legend>
 
-        <label>
-          Curso / Formação:
-          <input
-            type="text"
-            name="curso"
-            maxLength={100}
-            placeholder="Ex: Ciência da Computação, Análise e Desenvolvimento de Sistemas..."
-            value={formacaoAtual.curso}
-            onChange={handleFormacaoChange}
-          />
-        </label>
-        <br />
+          <div className="cs-row-double">
+            <label>
+              Curso / Formação:
+              <input
+                type="text"
+                name="curso"
+                maxLength={100}
+                placeholder="Ex: Ciência da Computação, ADS..."
+                value={formacaoAtual.curso}
+                onChange={handleFormacaoChange}
+              />
+            </label>
 
-        <label>
-          Instituição de Ensino:
-          <input
-            type="text"
-            name="instituicao"
-            maxLength={100}
-            placeholder="Ex: USP, FIAP, SENAI..."
-            value={formacaoAtual.instituicao}
-            onChange={handleFormacaoChange}
-          />
-        </label>
-        <br />
+            <label>
+              Instituição de Ensino:
+              <input
+                type="text"
+                name="instituicao"
+                maxLength={100}
+                placeholder="Ex: USP, FIAP, SENAI..."
+                value={formacaoAtual.instituicao}
+                onChange={handleFormacaoChange}
+              />
+            </label>
+          </div>
 
-        <label>
-          Nível:
-          <select
-            name="nivel"
-            value={formacaoAtual.nivel}
-            onChange={handleFormacaoChange}
-          >
-            <option value="Técnico">Técnico</option>
-            <option value="Tecnólogo">Tecnólogo</option>
-            <option value="Graduação">Graduação (Bacharelado / Licenciatura)</option>
-            <option value="Pós-graduação / MBA">Pós-graduação / MBA</option>
-            <option value="Mestrado / Doutorado">Mestrado / Doutorado</option>
-            <option value="Curso Profissionalizante">Curso Profissionalizante / Bootcamp</option>
-          </select>
-        </label>
-        <br />
+          <div className="cs-row-double">
+            <label>
+              Nível:
+              <select
+                name="nivel"
+                value={formacaoAtual.nivel}
+                onChange={handleFormacaoChange}
+              >
+                <option value="Técnico">Técnico</option>
+                <option value="Tecnólogo">Tecnólogo</option>
+                <option value="Graduação">Graduação (Bacharelado / Licenciatura)</option>
+                <option value="Pós-graduação / MBA">Pós-graduação / MBA</option>
+                <option value="Mestrado / Doutorado">Mestrado / Doutorado</option>
+                <option value="Curso Profissionalizante">Curso Profissionalizante / Bootcamp</option>
+              </select>
+            </label>
 
-        <label>
-          Status:
-          <select
-            name="status"
-            value={formacaoAtual.status}
-            onChange={handleFormacaoChange}
-          >
-            <option value="Concluído">Concluído</option>
-            <option value="Em andamento">Em andamento</option>
-            <option value="Incompleto / Trancado">Incompleto / Trancado</option>
-          </select>
-        </label>
-        <br />
+            <label>
+              Status:
+              <select
+                name="status"
+                value={formacaoAtual.status}
+                onChange={handleFormacaoChange}
+              >
+                <option value="Concluído">Concluído</option>
+                <option value="Em andamento">Em andamento</option>
+                <option value="Incompleto / Trancado">Incompleto / Trancado</option>
+              </select>
+            </label>
+          </div>
 
-        <label>
-          Ano de Conclusão (ou previsão):
-          <input
-            type="number"
-            name="anoConclusao"
-            min="1950"
-            max="2040"
-            placeholder="Ex: 2026"
-            value={formacaoAtual.anoConclusao}
-            onChange={handleFormacaoChange}
-          />
-        </label>
-        <br />
+          <label>
+            Ano de Conclusão (ou previsão):
+            <input
+              type="number"
+              name="anoConclusao"
+              min="1950"
+              max="2040"
+              placeholder="Ex: 2026"
+              value={formacaoAtual.anoConclusao}
+              onChange={handleFormacaoChange}
+            />
+          </label>
 
-        <button type="button" onClick={handleAdicionarFormacao}>
-          Adicionar Formação
-        </button>
+          <div className="cs-action-bar">
+            <span>Preencha os dados do curso para adicionar</span>
+            <button type="button" onClick={handleAdicionarFormacao}>
+              Adicionar Formação
+            </button>
+          </div>
 
-        {formacoes.length > 0 && (
-          <ul style={ESTILO_LISTA_ITENS}>
-            {formacoes.map((item, index) => (
-              <li key={`FORM-${index}`} style={ESTILO_ITEM_CARD}>
-                <span>
-                  <strong>{item.curso}</strong> ({item.nivel}) — {item.instituicao}
-                  <br />
-                  Status: {item.status} | Ano: {item.anoConclusao}
-                </span>
-                <button
-                  type="button"
-                  onClick={() => handleRemoverFormacao(index)}
-                >
-                  Remover
-                </button>
-              </li>
-            ))}
-          </ul>
-        )}
-      </fieldset>
+          {formacoes.length > 0 && (
+            <ul className="cs-attachment-list">
+              {formacoes.map((item, index) => (
+                <li key={`FORM-${index}`} className="cs-attachment-item">
+                  <span>
+                    <strong>{item.curso}</strong> ({item.nivel}) — {item.instituicao}
+                    <br />
+                    Status: {item.status} | Ano: {item.anoConclusao}
+                  </span>
+                  <button
+                    type="button"
+                    className="btn-danger"
+                    onClick={() => handleRemoverFormacao(index)}
+                  >
+                    Remover
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )}
+        </fieldset>
 
-      <br />
+        <fieldset>
+          <legend><strong>Certificações</strong></legend>
 
-      <fieldset>
-        <legend><strong>Certificações</strong></legend>
+          <label>
+            Nome da Certificação:
+            <input
+              type="text"
+              name="nome"
+              maxLength={100}
+              placeholder="Ex: AWS Certified Solutions Architect, CompTIA Security+..."
+              value={certificacaoAtual.nome}
+              onChange={handleCertificacaoChange}
+            />
+          </label>
 
-        <label>
-          Nome da Certificação:
-          <input
-            type="text"
-            name="nome"
-            maxLength={100}
-            placeholder="Ex: AWS Certified Solutions Architect, CompTIA Security+..."
-            value={certificacaoAtual.nome}
-            onChange={handleCertificacaoChange}
-          />
-        </label>
-        <br />
+          <div className="cs-row-double">
+            <label>
+              Instituição Emissora:
+              <input
+                type="text"
+                name="emissor"
+                maxLength={100}
+                placeholder="Ex: Amazon Web Services, Microsoft, Google, Cisco..."
+                value={certificacaoAtual.emissor}
+                onChange={handleCertificacaoChange}
+              />
+            </label>
 
-        <label>
-          Instituição Emissora:
-          <input
-            type="text"
-            name="emissor"
-            maxLength={100}
-            placeholder="Ex: Amazon Web Services, Microsoft, Google, Cisco..."
-            value={certificacaoAtual.emissor}
-            onChange={handleCertificacaoChange}
-          />
-        </label>
-        <br />
+            <label>
+              Ano de Emissão:
+              <input
+                type="number"
+                name="ano"
+                min="1980"
+                max="2040"
+                placeholder="Ex: 2025"
+                value={certificacaoAtual.ano}
+                onChange={handleCertificacaoChange}
+              />
+            </label>
+          </div>
 
-        <label>
-          Ano de Emissão:
-          <input
-            type="number"
-            name="ano"
-            min="1980"
-            max="2040"
-            placeholder="Ex: 2025"
-            value={certificacaoAtual.ano}
-            onChange={handleCertificacaoChange}
-          />
-        </label>
-        <br />
+          <label>
+            Código ou URL da Credencial (opcional):
+            <input
+              type="text"
+              name="credencial"
+              maxLength={150}
+              placeholder="Ex: Link de verificação ou ID da credencial"
+              value={certificacaoAtual.credencial}
+              onChange={handleCertificacaoChange}
+            />
+          </label>
 
-        <label>
-          Código ou URL da Credencial (opcional):
-          <input
-            type="text"
-            name="credencial"
-            maxLength={150}
-            placeholder="Ex: Link de verificação ou ID da credencial"
-            value={certificacaoAtual.credencial}
-            onChange={handleCertificacaoChange}
-          />
-        </label>
-        <br />
+          <div className="cs-action-bar">
+            <span>Informe nome, emissor e ano para adicionar</span>
+            <button type="button" onClick={handleAdicionarCertificacao}>
+              Adicionar Certificação
+            </button>
+          </div>
 
-        <button type="button" onClick={handleAdicionarCertificacao}>
-          Adicionar Certificação
-        </button>
+          {certificacoes.length > 0 && (
+            <ul className="cs-attachment-list">
+              {certificacoes.map((cert, index) => (
+                <li key={`CERT-${index}`} className="cs-attachment-item">
+                  <span>
+                    <strong>{cert.nome}</strong> — {cert.emissor} ({cert.ano})
+                    {cert.credencial && (
+                      <>
+                        <br />
+                        Credencial: {cert.credencial}
+                      </>
+                    )}
+                  </span>
+                  <button
+                    type="button"
+                    className="btn-danger"
+                    onClick={() => handleRemoverCertificacao(index)}
+                  >
+                    Remover
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )}
+        </fieldset>
+      </div>
 
-        {certificacoes.length > 0 && (
-          <ul style={ESTILO_LISTA_ITENS}>
-            {certificacoes.map((cert, index) => (
-              <li key={`CERT-${index}`} style={ESTILO_ITEM_CARD}>
-                <span>
-                  <strong>{cert.nome}</strong> — {cert.emissor} ({cert.ano})
-                  {cert.credencial && (
-                    <>
-                      <br />
-                      Credencial: {cert.credencial}
-                    </>
-                  )}
-                </span>
-                <button
-                  type="button"
-                  onClick={() => handleRemoverCertificacao(index)}
-                >
-                  Remover
-                </button>
-              </li>
-            ))}
-          </ul>
-        )}
-      </fieldset>
-
-      <br />
-
-      <button type="submit">Enviar</button>
+      <div className="cs-form-footer">
+        <button type="submit">Enviar</button>
+      </div>
     </form>
   );
 }

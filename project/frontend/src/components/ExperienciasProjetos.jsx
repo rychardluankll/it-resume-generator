@@ -5,115 +5,6 @@ import { AcessContext } from '../contexts/AcessContext';
 
 const LIMITE_CARACTERES = 500;
 
-const ESTILO_FORM = {
-  height: '96vh',
-  maxHeight: '96vh',
-  overflow: 'hidden',
-  boxSizing: 'border-box',
-  padding: '8px 16px',
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '8px',
-};
-
-const ESTILO_CABECALHO = {
-  margin: 0,
-  fontSize: '0.9rem',
-  flexShrink: 0,
-};
-
-const ESTILO_GRID_COLUNAS = {
-  display: 'grid',
-  gridTemplateColumns: '1fr 1fr',
-  gap: '14px',
-  flex: 1,
-  minHeight: 0,
-};
-
-const ESTILO_FIELDSET = {
-  margin: 0,
-  padding: '8px 12px',
-  border: '1px solid #ccc',
-  borderRadius: '6px',
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '6px',
-  minHeight: 0,
-  overflow: 'hidden',
-  boxSizing: 'border-box',
-};
-
-const ESTILO_LINHA_DUPLA = {
-  display: 'grid',
-  gridTemplateColumns: '1fr 1fr',
-  gap: '8px',
-};
-
-const ESTILO_LABEL = {
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '2px',
-  fontSize: '0.8rem',
-};
-
-const ESTILO_INPUT = {
-  padding: '4px 6px',
-  fontSize: '0.8rem',
-  boxSizing: 'border-box',
-  width: '100%',
-};
-
-const ESTILO_TEXTAREA = {
-  padding: '4px 6px',
-  fontSize: '0.8rem',
-  boxSizing: 'border-box',
-  width: '100%',
-  resize: 'none',
-};
-
-const ESTILO_BARRA_ACAO = {
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  fontSize: '0.75rem',
-  flexShrink: 0,
-};
-
-const ESTILO_LISTA_ANEXOS = {
-  listStylePosition: 'inside',
-  paddingLeft: 0,
-  margin: 0,
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '4px',
-  flex: 1,
-  minHeight: '55px',
-  overflowY: 'auto',
-  borderTop: '1px solid #e0e0e0',
-  paddingTop: '6px',
-};
-
-const ESTILO_ITEM_ANEXO = {
-  maxHeight: '58px',
-  overflowY: 'auto',
-  padding: '4px 8px',
-  fontSize: '0.78rem',
-  lineHeight: '1.25',
-  backgroundColor: '#f5f5f5',
-  border: '1px solid #ccc',
-  borderRadius: '4px',
-  whiteSpace: 'pre-wrap',
-  wordBreak: 'break-word',
-  overflowWrap: 'break-word',
-  flexShrink: 0,
-};
-
-const ESTILO_RODAPE = {
-  display: 'flex',
-  justifyContent: 'flex-end',
-  flexShrink: 0,
-};
-
 const EXPERIENCIA_INICIAL = {
   tipo: "",
   empresa: "",
@@ -225,22 +116,21 @@ export default function ExperienciasProjetos() {
   }
 
   return (
-    <form onSubmit={getData} style={ESTILO_FORM}>
-      <p style={ESTILO_CABECALHO}>
+    <form onSubmit={getData}>
+      <p>
         Descreva suas experiências pessoais (profissionais, acadêmicas ou voluntárias)
         e os projetos que você já desenvolveu.
       </p>
 
-      <div style={ESTILO_GRID_COLUNAS}>
+      <div className="cs-grid-2col">
         {/* Coluna Esquerda: Experiências Pessoais */}
-        <fieldset style={ESTILO_FIELDSET}>
+        <fieldset>
           <legend><strong>Experiências Pessoais</strong></legend>
 
-          <div style={ESTILO_LINHA_DUPLA}>
-            <label style={ESTILO_LABEL}>
+          <div className="cs-row-double">
+            <label>
               <span>Tipo (PJ, CLT, Estágio, SaaS...):</span>
               <input
-                style={ESTILO_INPUT}
                 type="text"
                 name="tipo"
                 list="tipos-experiencia"
@@ -261,10 +151,9 @@ export default function ExperienciasProjetos() {
               </datalist>
             </label>
 
-            <label style={ESTILO_LABEL}>
+            <label>
               <span>Empresa (se houver):</span>
               <input
-                style={ESTILO_INPUT}
                 type="text"
                 name="empresa"
                 maxLength={100}
@@ -275,10 +164,9 @@ export default function ExperienciasProjetos() {
             </label>
           </div>
 
-          <label style={ESTILO_LABEL}>
+          <label>
             <span>Data / Período:</span>
             <input
-              style={ESTILO_INPUT}
               type="text"
               name="data"
               maxLength={100}
@@ -288,10 +176,9 @@ export default function ExperienciasProjetos() {
             />
           </label>
 
-          <label style={ESTILO_LABEL}>
+          <label>
             <span>Descrição breve do trabalho (máx. {LIMITE_CARACTERES} caracteres):</span>
             <textarea
-              style={ESTILO_TEXTAREA}
               name="descricao"
               rows={3}
               maxLength={LIMITE_CARACTERES}
@@ -301,31 +188,34 @@ export default function ExperienciasProjetos() {
             />
           </label>
 
-          <div style={ESTILO_BARRA_ACAO}>
+          <div className="cs-action-bar">
             <span>({experienciaAtual.descricao.length}/{LIMITE_CARACTERES})</span>
             <button type="button" onClick={handleAnexarExperiencia}>
               Anexar Experiência
             </button>
           </div>
 
-          <ul style={ESTILO_LISTA_ANEXOS}>
-            {experienciasPessoais.map((exp, index) => (
-              <li key={`EXP-${index}`} style={ESTILO_ITEM_ANEXO}>
-                <strong>Experiência #{index + 1}:</strong>{"\n"}{exp}
-              </li>
-            ))}
-          </ul>
+          {experienciasPessoais.length > 0 && (
+            <ul className="cs-attachment-list">
+              {experienciasPessoais.map((exp, index) => (
+                <li key={`EXP-${index}`} className="cs-attachment-item">
+                  <div>
+                    <strong>Experiência #{index + 1}:</strong>{"\n"}{exp}
+                  </div>
+                </li>
+              ))}
+            </ul>
+          )}
         </fieldset>
 
         {/* Coluna Direita: Projetos Pessoais */}
-        <fieldset style={ESTILO_FIELDSET}>
+        <fieldset>
           <legend><strong>Projetos Pessoais</strong></legend>
 
-          <div style={ESTILO_LINHA_DUPLA}>
-            <label style={ESTILO_LABEL}>
+          <div className="cs-row-double">
+            <label>
               <span>Nome do projeto:</span>
               <input
-                style={ESTILO_INPUT}
                 type="text"
                 name="nome"
                 maxLength={100}
@@ -335,10 +225,9 @@ export default function ExperienciasProjetos() {
               />
             </label>
 
-            <label style={ESTILO_LABEL}>
+            <label>
               <span>Tecnologias utilizadas:</span>
               <input
-                style={ESTILO_INPUT}
                 type="text"
                 name="tecnologias"
                 maxLength={200}
@@ -349,11 +238,10 @@ export default function ExperienciasProjetos() {
             </label>
           </div>
 
-          <div style={ESTILO_LINHA_DUPLA}>
-            <label style={ESTILO_LABEL}>
+          <div className="cs-row-double">
+            <label>
               <span>Problema que resolve:</span>
               <textarea
-                style={ESTILO_TEXTAREA}
                 name="problema"
                 rows={2}
                 maxLength={LIMITE_CARACTERES}
@@ -363,10 +251,9 @@ export default function ExperienciasProjetos() {
               />
             </label>
 
-            <label style={ESTILO_LABEL}>
+            <label>
               <span>Funcionalidades e descrição técnica:</span>
               <textarea
-                style={ESTILO_TEXTAREA}
                 name="funcionalidades"
                 rows={2}
                 maxLength={LIMITE_CARACTERES}
@@ -377,11 +264,10 @@ export default function ExperienciasProjetos() {
             </label>
           </div>
 
-          <div style={ESTILO_LINHA_DUPLA}>
-            <label style={ESTILO_LABEL}>
+          <div className="cs-row-double">
+            <label>
               <span>Link do GitHub:</span>
               <input
-                style={ESTILO_INPUT}
                 type="url"
                 name="linkGithub"
                 maxLength={200}
@@ -391,10 +277,9 @@ export default function ExperienciasProjetos() {
               />
             </label>
 
-            <label style={ESTILO_LABEL}>
+            <label>
               <span>Link da aplicação (se existir):</span>
               <input
-                style={ESTILO_INPUT}
                 type="url"
                 name="linkAplicacao"
                 maxLength={200}
@@ -405,24 +290,28 @@ export default function ExperienciasProjetos() {
             </label>
           </div>
 
-          <div style={ESTILO_BARRA_ACAO}>
+          <div className="cs-action-bar">
             <span>Preencha os campos obrigatórios para anexar</span>
             <button type="button" onClick={handleAnexarProjeto}>
               Anexar Projeto
             </button>
           </div>
 
-          <ul style={ESTILO_LISTA_ANEXOS}>
-            {projetos.map((proj, index) => (
-              <li key={`PROJ-${index}`} style={ESTILO_ITEM_ANEXO}>
-                <strong>Projeto #{index + 1}:</strong>{"\n"}{proj}
-              </li>
-            ))}
-          </ul>
+          {projetos.length > 0 && (
+            <ul className="cs-attachment-list">
+              {projetos.map((proj, index) => (
+                <li key={`PROJ-${index}`} className="cs-attachment-item">
+                  <div>
+                    <strong>Projeto #{index + 1}:</strong>{"\n"}{proj}
+                  </div>
+                </li>
+              ))}
+            </ul>
+          )}
         </fieldset>
       </div>
 
-      <div style={ESTILO_RODAPE}>
+      <div className="cs-form-footer">
         <button type="submit">Prosseguir</button>
       </div>
     </form>
