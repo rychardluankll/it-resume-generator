@@ -61,6 +61,10 @@ export default function AreasInteresse() {
 
   return (
     <form onSubmit={getData}>
+      <p>
+        Selecione a especialidade de TI de seu interesse para direcionar as etapas do seu currículo:
+      </p>
+
       <label className="opcao">
         <input
           type="checkbox"

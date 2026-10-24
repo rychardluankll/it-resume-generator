@@ -1,5 +1,29 @@
 import { useContext, useState } from 'react';
 import { GlobalContext } from '../contexts/GlobalContexts';
+import {
+  REGEX_ANO,
+  REGEX_CREDENCIAL,
+  contemInjecaoScript,
+  sanitizarAno,
+  sanitizarCredencial,
+  sanitizarTextoCurto,
+  validarTextoCurto,
+} from '../utils/inputValidation';
+
+const NIVEIS_PERMITIDOS = [
+  'Técnico',
+  'Tecnólogo',
+  'Graduação',
+  'Pós-graduação / MBA',
+  'Mestrado / Doutorado',
+  'Curso Profissionalizante',
+];
+
+const STATUS_PERMITIDOS = [
+  'Concluído',
+  'Em andamento',
+  'Incompleto / Trancado',
+];
 
 export default function FormacaoCertificacoes() {
   const {
@@ -27,9 +51,21 @@ export default function FormacaoCertificacoes() {
 
   function handleFormacaoChange(e) {
     const { name, value } = e.target;
+    let valorLimpo = value;
+
+    if (name === 'curso' || name === 'instituicao') {
+      valorLimpo = sanitizarTextoCurto(value, 100);
+    } else if (name === 'anoConclusao') {
+      valorLimpo = sanitizarAno(value);
+    } else if (name === 'nivel') {
+      valorLimpo = NIVEIS_PERMITIDOS.includes(value) ? value : 'Graduação';
+    } else if (name === 'status') {
+      valorLimpo = STATUS_PERMITIDOS.includes(value) ? value : 'Concluído';
+    }
+
     setFormacaoAtual((prev) => ({
       ...prev,
-      [name]: value,
+      [name]: valorLimpo,
     }));
   }
 
@@ -37,8 +73,17 @@ export default function FormacaoCertificacoes() {
     const curso = formacaoAtual.curso.trim();
     const instituicao = formacaoAtual.instituicao.trim();
     const anoConclusao = formacaoAtual.anoConclusao.trim();
+    const anoNum = Number(anoConclusao);
 
-    if (!curso || !instituicao || !anoConclusao) {
+    if (
+      !validarTextoCurto(curso, 1, 100) ||
+      !validarTextoCurto(instituicao, 1, 100) ||
+      !REGEX_ANO.test(anoConclusao) ||
+      anoNum < 1950 ||
+      anoNum > 2040 ||
+      !NIVEIS_PERMITIDOS.includes(formacaoAtual.nivel) ||
+      !STATUS_PERMITIDOS.includes(formacaoAtual.status)
+    ) {
       return;
     }
 
@@ -66,9 +111,19 @@ export default function FormacaoCertificacoes() {
 
   function handleCertificacaoChange(e) {
     const { name, value } = e.target;
+    let valorLimpo = value;
+
+    if (name === 'nome' || name === 'emissor') {
+      valorLimpo = sanitizarTextoCurto(value, 100);
+    } else if (name === 'ano') {
+      valorLimpo = sanitizarAno(value);
+    } else if (name === 'credencial') {
+      valorLimpo = sanitizarCredencial(value, 150);
+    }
+
     setCertificacaoAtual((prev) => ({
       ...prev,
-      [name]: value,
+      [name]: valorLimpo,
     }));
   }
 
@@ -77,8 +132,16 @@ export default function FormacaoCertificacoes() {
     const emissor = certificacaoAtual.emissor.trim();
     const ano = certificacaoAtual.ano.trim();
     const credencial = certificacaoAtual.credencial.trim();
+    const anoNum = Number(ano);
 
-    if (!nome || !emissor || !ano) {
+    if (
+      !validarTextoCurto(nome, 1, 100) ||
+      !validarTextoCurto(emissor, 1, 100) ||
+      !REGEX_ANO.test(ano) ||
+      anoNum < 1980 ||
+      anoNum > 2040 ||
+      (credencial && (!REGEX_CREDENCIAL.test(credencial) || contemInjecaoScript(credencial)))
+    ) {
       return;
     }
 

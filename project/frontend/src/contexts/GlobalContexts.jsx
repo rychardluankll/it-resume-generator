@@ -1,6 +1,24 @@
-import { createContext, useState, useEffect } from 'react';
+import { createContext, useState } from 'react';
+import { removerPadroesMaliciosos } from '../utils/inputValidation';
 
 export const GlobalContext = createContext();
+
+function sanitizarPayloadRecursivo(dado) {
+    if (typeof dado === "string") {
+        return removerPadroesMaliciosos(dado).trim();
+    }
+    if (Array.isArray(dado)) {
+        return dado.map(sanitizarPayloadRecursivo);
+    }
+    if (dado && typeof dado === "object") {
+        const objetoLimpo = {};
+        for (const [chave, valor] of Object.entries(dado)) {
+            objetoLimpo[chave] = sanitizarPayloadRecursivo(valor);
+        }
+        return objetoLimpo;
+    }
+    return dado;
+}
 
 export default function GlobalContextProvider({ children }) {
     const [informacoesIniciais, setInformacoesIniciais] = useState({
@@ -37,7 +55,7 @@ export default function GlobalContextProvider({ children }) {
     //enviar todos os dados para api;
     const [response, setResponse] = useState();
     async function sendData() {
-        const reqdata = {
+        const reqdata = sanitizarPayloadRecursivo({
             informacoesIniciais: informacoesIniciais,
             areasInteresse: areasInteresse,
             backendFundamentos: backendFundamentos,
@@ -56,7 +74,7 @@ export default function GlobalContextProvider({ children }) {
             projetos: projetos,
             formacoes: formacoes,
             certificacoes: certificacoes,
-        };
+        });
 
         const res = await fetch("http://localhost:8989/userData", {
             method: 'POST',

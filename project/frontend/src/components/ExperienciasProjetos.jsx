@@ -2,6 +2,14 @@ import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { GlobalContext } from '../contexts/GlobalContexts';
 import { AcessContext } from '../contexts/AcessContext';
+import {
+  sanitizarTextoCurto,
+  sanitizarTextoLongo,
+  sanitizarUrl,
+  validarTextoCurto,
+  validarTextoLongo,
+  validarUrl,
+} from '../utils/inputValidation';
 
 const LIMITE_CARACTERES = 500;
 
@@ -36,9 +44,14 @@ export default function ExperienciasProjetos() {
 
   function handleExperienciaInput(e) {
     const { name, value } = e.target;
+    const valorLimpo =
+      name === "descricao"
+        ? sanitizarTextoLongo(value, LIMITE_CARACTERES)
+        : sanitizarTextoCurto(value, 100);
+
     setExperienciaAtual((prev) => ({
       ...prev,
-      [name]: value,
+      [name]: valorLimpo,
     }));
   }
 
@@ -48,7 +61,12 @@ export default function ExperienciasProjetos() {
     const data = experienciaAtual.data.trim();
     const descricao = experienciaAtual.descricao.trim();
 
-    if (!tipo || !data || !descricao) {
+    if (
+      !validarTextoCurto(tipo, 1, 100) ||
+      (empresa && !validarTextoCurto(empresa, 1, 100)) ||
+      !validarTextoCurto(data, 1, 100) ||
+      !validarTextoLongo(descricao, 1, LIMITE_CARACTERES)
+    ) {
       return;
     }
 
@@ -73,9 +91,21 @@ export default function ExperienciasProjetos() {
 
   function handleProjetoInput(e) {
     const { name, value } = e.target;
+    let valorLimpo = value;
+
+    if (name === "nome") {
+      valorLimpo = sanitizarTextoCurto(value, 100);
+    } else if (name === "tecnologias") {
+      valorLimpo = sanitizarTextoCurto(value, 200);
+    } else if (name === "problema" || name === "funcionalidades") {
+      valorLimpo = sanitizarTextoLongo(value, LIMITE_CARACTERES);
+    } else if (name === "linkGithub" || name === "linkAplicacao") {
+      valorLimpo = sanitizarUrl(value, 200);
+    }
+
     setProjetoAtual((prev) => ({
       ...prev,
-      [name]: value,
+      [name]: valorLimpo,
     }));
   }
 
@@ -87,7 +117,14 @@ export default function ExperienciasProjetos() {
     const linkGithub = projetoAtual.linkGithub.trim();
     const linkAplicacao = projetoAtual.linkAplicacao.trim();
 
-    if (!nome || !problema || !tecnologias || !funcionalidades || !linkGithub) {
+    if (
+      !validarTextoCurto(nome, 1, 100) ||
+      !validarTextoLongo(problema, 1, LIMITE_CARACTERES) ||
+      !validarTextoCurto(tecnologias, 1, 200) ||
+      !validarTextoLongo(funcionalidades, 1, LIMITE_CARACTERES) ||
+      !validarUrl(linkGithub, true) ||
+      !validarUrl(linkAplicacao, false)
+    ) {
       return;
     }
 

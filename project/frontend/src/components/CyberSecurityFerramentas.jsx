@@ -2,8 +2,7 @@ import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { GlobalContext } from '../contexts/GlobalContexts';
 import { AcessContext } from '../contexts/AcessContext';
-
-const REGEX_FERRAMENTA_VALIDA = /^[a-zA-ZÀ-ÿ0-9\s.+#\-/()]{1,50}$/;
+import { sanitizarFerramenta, validarFerramenta } from '../utils/inputValidation';
 
 export default function CyberSecurityFerramentas() {
   const { cyberSecurityFerramentas, setCyberSecurityFerramentas } = useContext(GlobalContext);
@@ -24,7 +23,7 @@ export default function CyberSecurityFerramentas() {
   }
 
   function handleOutraFerramentaInput(e) {
-    const valorLimpo = e.target.value.replace(/[^a-zA-ZÀ-ÿ0-9\s.+#\-/()]/g, "").slice(0, 50);
+    const valorLimpo = sanitizarFerramenta(e.target.value, 50);
     setOutraFerramenta(valorLimpo);
     if (valorLimpo.trim() !== "") {
       setOutroSelecionado(true);
@@ -34,7 +33,7 @@ export default function CyberSecurityFerramentas() {
   function handleAdicionarFerramenta() {
     const novaFerramenta = outraFerramenta.trim();
 
-    if (!novaFerramenta || !REGEX_FERRAMENTA_VALIDA.test(novaFerramenta)) {
+    if (!validarFerramenta(novaFerramenta)) {
       return;
     }
 
